@@ -19,6 +19,15 @@ class House1(p.sprite.Sprite):
         self.image.fill((0,0,0))
         self.image.set_colorkey((0,0,0))
         p.draw.rect(self.image,colour,(0,50,100,150))
+        #chimney
+        if rand.randint(0,1) == 1:
+            p.draw.rect(self.image,colour,(10,10,20,40))
+            p.draw.rect(self.image,(255,255,255),(10,10,20,5))
+            
+        else:
+            p.draw.rect(self.image,colour,(70,10,20,40))
+            p.draw.rect(self.image,(255,255,255),(70,10,20,5))
+            
         p.draw.polygon(self.image,(255,255,255),[(0,50),(50,0),(100,50)])
         #windows
         p.draw.rect(self.image,(25,25,50),(10,70,30,40))
@@ -38,11 +47,28 @@ class House1(p.sprite.Sprite):
 
             p.draw.rect(self.image,(100,50,25),(60,145,30,65))
             p.draw.rect(self.image,(84,42,0),(60,145,30,65),2)
-        #p.draw.lines(self.image,(165,42,42),False,[(25,75),(50,0),(100,50)],2)
         self.rect = self.image.get_rect()
     def update(self):
         self.x = self.x - speed
         self.rect.x = round(self.x)
+
+
+class SnowMan(p.sprite.Sprite):
+    def __init__(self,name = ''):
+        self.name = name
+        self.x = 0
+        p.sprite.Sprite.__init__(self)
+        self.image = p.Surface([100,200])
+        self.image.fill((0,0,0))
+        self.image.set_colorkey((0,0,0))
+        p.draw.circle(self.image,(255,255,255),(50,100),50)
+        p.draw.circle(self.image,(255,255,255),(50,25),25)
+        self.rect = self.image.get_rect()
+    def update(self):
+        self.x = self.x - speed
+        self.rect.x = round(self.x)
+
+
         
 class Star(p.sprite.Sprite):
     def __init__(self,colour,radius,name = ''):
@@ -85,6 +111,13 @@ def create_house():
     house.rect.x = 1280
     all_sprites_list.add(house)
     houses.add(house)
+def create_snowman():
+    snowman = SnowMan()
+    snowman.rect.y = 460
+    snowman.x = 1280
+    snowman.rect.x = 1280
+    all_sprites_list.add(snowman)
+    houses.add(snowman)
 def create_stars():
     for i in range(rand.randint(20,40)):
         star = Star((255,223,100),rand.randint(1,3))
@@ -164,7 +197,10 @@ def update_sprites():
     global house_count, house_max
     houses.update()
     if house_count == house_max:
-        create_house()
+        if rand.randint(1,4) == 1:
+            create_snowman()
+        else:
+            create_house()
         house_count = 0
         house_max = round(rand.randint(400,600)/speed)
     house_count = house_count + 1
@@ -177,7 +213,7 @@ def loop():
     global count, house_count, house_max
     count = 25
     house_count = 1
-    bgu = True
+    bgu = 1
     counttest = 0
     house_max = round(rand.randint(400,600)/speed)
     while True:
@@ -185,10 +221,11 @@ def loop():
         for i in range(2):
             delete_sprites()
             update_sprites()
-        if bgu:
+        if bgu == 2:
             update_sprites_background()
+            bgu = 0
         update_screen()
-        bgu = not(bgu)
+        bgu = bgu + 1
 if __name__ == '__main__':
     setup()
     loop()
