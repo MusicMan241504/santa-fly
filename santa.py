@@ -62,7 +62,17 @@ class SnowMan(p.sprite.Sprite):
         self.image.fill((0,0,0))
         self.image.set_colorkey((0,0,0))
         p.draw.circle(self.image,(255,255,255),(50,100),50)
-        p.draw.circle(self.image,(255,255,255),(50,25),25)
+        p.draw.circle(self.image,(255,255,255),(50,30),25)
+        p.draw.circle(self.image,(0,0,0),(40,25),5)
+        p.draw.circle(self.image,(0,0,0),(60,25),5)
+        p.draw.circle(self.image,(0,0,0),(50,70),5)
+        p.draw.circle(self.image,(0,0,0),(50,90),5)
+        p.draw.circle(self.image,(0,0,0),(50,110),5)
+        p.draw.circle(self.image,(0,0,0),(50,130),5)
+        p.draw.circle(self.image,(255,165,0),(50,35),5)
+        p.draw.arc(self.image,(0,0,0),(40,20,20,30),3.9,5.6)
+        p.draw.arc(self.image,(255,0,0),(25,25,50,40),3.6,5.9,10)
+        p.draw.polygon(self.image,(255,0,0),[(55,60),(65,55),(80,80),(65,85)])
         self.rect = self.image.get_rect()
     def update(self):
         self.x = self.x - speed
@@ -197,7 +207,7 @@ def update_sprites():
     global house_count, house_max
     houses.update()
     if house_count == house_max:
-        if rand.randint(1,4) == 1:
+        if rand.randint(1,1) == 1:
             create_snowman()
         else:
             create_house()
