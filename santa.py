@@ -12,6 +12,7 @@ class Rect(p.sprite.Sprite):
 
 class House1(p.sprite.Sprite):
     def __init__(self,colour,name = ''):
+        global speed
         self.name = name
         self.x = 0
         p.sprite.Sprite.__init__(self)
@@ -81,6 +82,16 @@ class SnowMan(p.sprite.Sprite):
         self.rect.x = round(self.x)
 
 
+class Sleigh(p.sprite.Sprite):
+    def __init__(self,name = ''):
+        self.name = name
+        self.x = 0
+        p.sprite.Sprite.__init__(self)
+        self.image = p.transform.scale(p.image.load('sleigh.png'),(200,108))
+        self.image.set_colorkey((255,255,255))
+        self.rect = self.image.get_rect()
+
+
         
 class Star(p.sprite.Sprite):
     def __init__(self,colour,radius,name = ''):
@@ -97,6 +108,7 @@ class Star(p.sprite.Sprite):
         
 class Snow(p.sprite.Sprite):
     def __init__(self,radius,name = ''):
+        global speed
         self.name = name
         self.x = 0
         self.y = 0
@@ -157,10 +169,16 @@ def more_snow():
         snow.x = snow.rect.x
         all_sprites_list.add(snow)
         snows.add(snow)
+def create_sleigh():
+    sleigh = Sleigh()
+    sleigh.rect.x = 200
+    sleigh.rect.y = 175
+    all_sprites_list.add(sleigh)
 def setup():
     global clock, all_sprites_list, stars, houses, background, snows, ground, speed
     background = p.display.set_mode([1280,720])
-    speed = 1.5
+    #background = p.display.set_mode([1280,720],p.FULLSCREEN | p.SCALED)
+    speed = 3
     all_sprites_list = p.sprite.Group()
     houses = p.sprite.Group()
     stars = p.sprite.Group()
@@ -172,6 +190,7 @@ def setup():
     all_sprites_list.add(ground)
     create_house()
     create_snow()
+    create_sleigh()
     background.fill([0,0,50])
     all_sprites_list.draw(background)
     p.display.flip()
@@ -206,15 +225,15 @@ def update_sprites_background():
         count = 0
     count = count + 1
 def update_sprites():
-    global house_count, house_max
+    global house_count, house_max, speed
     houses.update()
     if house_count == house_max:
-        if rand.randint(1,1) == 1:
+        if rand.randint(1,3) == 1:
             create_snowman()
         else:
             create_house()
         house_count = 0
-        house_max = round(rand.randint(400,600)/speed)
+        house_max = round(rand.randint(400,600)*speed/9)
     house_count = house_count + 1
 def update_screen():
     background.fill([0,0,50])
@@ -222,12 +241,12 @@ def update_screen():
     p.display.flip()
     clock.tick(60)
 def loop():
-    global count, house_count, house_max
+    global count, house_count, house_max, speed
     count = 25
     house_count = 1
     bgu = 1
     counttest = 0
-    house_max = round(rand.randint(400,600)/speed)
+    house_max = round(rand.randint(400,600)*speed/9)
     while True:
         events()
         for i in range(2):
@@ -238,6 +257,7 @@ def loop():
             bgu = 0
         update_screen()
         bgu = bgu + 1
+        speed = speed + 0.0002
 if __name__ == '__main__':
     setup()
     loop()
