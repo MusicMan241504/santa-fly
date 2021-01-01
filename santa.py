@@ -61,18 +61,20 @@ class SnowMan(p.sprite.Sprite):
         self.image = p.Surface([100,200])
         self.image.fill((0,0,0))
         self.image.set_colorkey((0,0,0))
-        p.draw.circle(self.image,(255,255,255),(50,100),50)
-        p.draw.circle(self.image,(255,255,255),(50,30),25)
-        p.draw.circle(self.image,(0,0,0),(40,25),5)
-        p.draw.circle(self.image,(0,0,0),(60,25),5)
-        p.draw.circle(self.image,(0,0,0),(50,70),5)
-        p.draw.circle(self.image,(0,0,0),(50,90),5)
-        p.draw.circle(self.image,(0,0,0),(50,110),5)
-        p.draw.circle(self.image,(0,0,0),(50,130),5)
-        p.draw.circle(self.image,(255,165,0),(50,35),5)
-        p.draw.arc(self.image,(0,0,0),(40,20,20,30),3.9,5.6)
-        p.draw.arc(self.image,(255,0,0),(25,25,50,40),3.6,5.9,10)
-        p.draw.polygon(self.image,(255,0,0),[(55,60),(65,55),(80,80),(65,85)])
+        p.draw.circle(self.image,(255,255,255),(50,150),50)
+        p.draw.circle(self.image,(255,255,255),(50,80),25)
+        p.draw.circle(self.image,(0,0,0),(40,75),5)
+        p.draw.circle(self.image,(0,0,0),(60,75),5)
+        p.draw.circle(self.image,(0,0,0),(50,120),5)
+        p.draw.circle(self.image,(0,0,0),(50,140),5)
+        p.draw.circle(self.image,(0,0,0),(50,160),5)
+        p.draw.circle(self.image,(0,0,0),(50,180),5)
+        p.draw.circle(self.image,(255,165,0),(50,85),5)
+        p.draw.arc(self.image,(0,0,0),(40,70,20,30),3.9,5.6)
+        p.draw.arc(self.image,(255,0,0),(25,75,50,40),3.6,5.9,10)
+        p.draw.polygon(self.image,(255,0,0),[(55,110),(65,105),(80,130),(65,135)])   #scarf
+        p.draw.polygon(self.image,(255,0,0),[(50,0),(26,65),(74,65)])   #hat
+        p.draw.polygon(self.image,(0,255,0),[(26,65),(74,65),(75,70),(25,70)])   #hat
         self.rect = self.image.get_rect()
     def update(self):
         self.x = self.x - speed
@@ -123,7 +125,7 @@ def create_house():
     houses.add(house)
 def create_snowman():
     snowman = SnowMan()
-    snowman.rect.y = 460
+    snowman.rect.y = 410
     snowman.x = 1280
     snowman.rect.x = 1280
     all_sprites_list.add(snowman)
