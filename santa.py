@@ -125,6 +125,23 @@ class Snow(p.sprite.Sprite):
         self.rect.y = round(self.y)
         self.x = self.x - self.speedx
         self.rect.x = round(self.x)
+class Present(p.sprite.Sprite):
+    def __init__(self,colour,width,height,name = ''):
+        self.name = name
+        p.sprite.Sprite.__init__(self)
+        self.image = p.Surface([width,height])
+        self.image.fill(colour)
+        self.rect = self.image.get_rect()
+        self.speedy = 0.5
+        self.speedx = speed / 30
+    def update(self):
+        self.speedy = self.speedy + 0.1
+        self.speedx = self.speedx + 0.01
+        self.y = self.y + self.speedy
+        self.rect.y = round(self.y)
+        self.x = self.x - self.speedx
+        self.rect.x = round(self.x)
+    
 
 def create_house():
     r = rand.randint(200,255)
@@ -150,7 +167,7 @@ def create_stars():
         all_sprites_list.add(star)
         stars.add(star)
 def create_snow():
-    for i in range(round(640+270*speed)):
+    for i in range(round((640+270*speed)/2)):
         snow = Snow(rand.randint(1,4))
         snow.rect.y = rand.randint(0,600)
         snow.y = snow.rect.y
@@ -160,7 +177,7 @@ def create_snow():
         all_sprites_list.add(snow)
         snows.add(snow)
 def more_snow():
-    for i in range(round(80+45*speed)):
+    for i in range(round((80+45*speed)/2)):
         snow = Snow(rand.randint(1,4))
         snow.rect.y = rand.randint(-100,0)
         snow.y = snow.rect.y
@@ -169,13 +186,21 @@ def more_snow():
         snow.x = snow.rect.x
         all_sprites_list.add(snow)
         snows.add(snow)
+def create_present():
+    present = Present((255,0,0),20,20)
+    present.x = 200
+    present.rect.x = present.x = 200
+    present.y = 175
+    present.rect.y = present.y = 200
+    presents.add(present)
+    all_sprites_list.add(present)
 def create_sleigh():
     sleigh = Sleigh()
     sleigh.rect.x = 200
     sleigh.rect.y = 175
     all_sprites_list.add(sleigh)
 def setup():
-    global clock, all_sprites_list, stars, houses, background, snows, ground, speed
+    global clock, all_sprites_list, stars, houses, background, snows, ground, speed, presents
     background = p.display.set_mode([1280,720])
     #background = p.display.set_mode([1280,720],p.FULLSCREEN | p.SCALED)
     speed = 3
@@ -183,6 +208,7 @@ def setup():
     houses = p.sprite.Group()
     stars = p.sprite.Group()
     snows = p.sprite.Group()
+    presents = p.sprite.Group()
     create_stars()
     ground = Rect((255,255,255),1280,120)
     ground.rect.x = 0
@@ -203,6 +229,8 @@ def events():
         if event.type == p.KEYDOWN:
             if event.key == p.K_ESCAPE:
                 close()
+            if event.key == p.K_SPACE:
+                create_present()
 
 def close():
     p.display.quit()
@@ -216,6 +244,9 @@ def delete_sprites():
             sprite.kill()
     for sprite in houses:
         if sprite.rect.x < -100:
+            sprite.kill()
+    for sprite in presents:
+        if sprite.rect.y > 700:
             sprite.kill()
 def update_sprites_background():
     global count
@@ -235,6 +266,7 @@ def update_sprites():
         house_count = 0
         house_max = round(rand.randint(400,600)*speed/9)
     house_count = house_count + 1
+    presents.update()
 def update_screen():
     background.fill([0,0,50])
     all_sprites_list.draw(background)
