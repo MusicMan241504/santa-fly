@@ -132,15 +132,23 @@ class Present(p.sprite.Sprite):
         self.image = p.Surface([width,height])
         self.image.fill(colour)
         self.rect = self.image.get_rect()
-        self.speedy = 0.5
-        self.speedx = speed / 30
+        self.speedy = 0.1
+        self.count = 1
+        self.divider = int(100/3)+1
     def update(self):
-        self.speedy = self.speedy + 0.1
-        self.speedx = self.speedx + 0.01
+        self.speedy = self.speedy + 0.05
+        self.speedx = (self.count+speed)/self.divider
+        if self.speedx > speed:
+            self.speedx = speed
         self.y = self.y + self.speedy
         self.rect.y = round(self.y)
         self.x = self.x - self.speedx
         self.rect.x = round(self.x)
+        #print(str(self.count) + "  " + str(self.speedx))
+        self.count = self.count + 1
+
+
+        
     
 
 def create_house():
@@ -188,15 +196,15 @@ def more_snow():
         snows.add(snow)
 def create_present():
     present = Present((255,0,0),20,20)
-    present.x = 200
-    present.rect.x = present.x = 200
-    present.y = 175
-    present.rect.y = present.y = 200
+    present.x = 300
+    present.rect.x = present.x
+    present.y = 200
+    present.rect.y = present.y
     presents.add(present)
     all_sprites_list.add(present)
 def create_sleigh():
     sleigh = Sleigh()
-    sleigh.rect.x = 200
+    sleigh.rect.x = 250
     sleigh.rect.y = 175
     all_sprites_list.add(sleigh)
 def setup():
