@@ -49,6 +49,7 @@ class House1(p.sprite.Sprite):
             p.draw.rect(self.image,(100,50,25),(60,145,30,65))
             p.draw.rect(self.image,(84,42,0),(60,145,30,65),2)
         self.rect = self.image.get_rect()
+        self.present = False
     def update(self):
         self.x = self.x - speed
         self.rect.x = round(self.x)
@@ -226,7 +227,7 @@ def setup():
     #background = p.display.set_mode([1280,720],p.FULLSCREEN | p.SCALED)
     speed = 3
     score = 0
-    lives = 3
+    lives = 5
     all_sprites_list = p.sprite.Group()
     houses = p.sprite.Group()
     stars = p.sprite.Group()
@@ -274,6 +275,7 @@ def close():
     raise SystemExit
 
 def delete_sprites():
+    global lives
     for sprite in snows:
         if sprite.rect.y > 700:
             sprite.kill()
@@ -281,10 +283,13 @@ def delete_sprites():
             sprite.kill()
     for sprite in houses:
         if sprite.rect.x < -100:
+            if sprite.present == False:
+                lives = lives - 1
             sprite.kill()
     for sprite in snowmen:
         if sprite.rect.x < -100:
             sprite.kill()
+            
 def present_sense():
     global score, lives
     for sprite in presents:
@@ -293,8 +298,12 @@ def present_sense():
             break
         if sprite.rect.y > 600 and sprite.falling == True:
             sprite.falling = False
-            if len(p.sprite.spritecollide(sprite, houses, False)) == 1:
+            lst = p.sprite.spritecollide(sprite, houses, False)
+            if len(lst) == 1:
+                house = lst[0]
                 score = score + 1
+                house.present = True
+                
             else:
                 lives = lives - 1
             
@@ -360,4 +369,5 @@ def loop():
         speed = speed + 0.0002
 if __name__ == '__main__':
     setup()
+    p.time.wait(2000)
     loop()
