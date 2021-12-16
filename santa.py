@@ -27,7 +27,7 @@ def create_stars():
         all_sprites_list.add(star)
         stars.add(star)
 def create_snow():
-    for i in range(round((640+270*speed)/2)):
+    for i in range(round((640+270*speed/2))):    #change *2 to /2 if game lags
         snow = Snow(rand.randint(1,4),speed)
         snow.rect.y = rand.randint(0,600)
         snow.y = snow.rect.y
@@ -37,7 +37,7 @@ def create_snow():
         all_sprites_list.add(snow)
         snows.add(snow)
 def more_snow():
-    for i in range(round((80+45*speed)/2)):
+    for i in range(round((80+45*speed/2))):      #change *2 to /2 if game lags
         snow = Snow(rand.randint(1,4),speed)
         snow.rect.y = rand.randint(-100,0)
         snow.y = snow.rect.y
@@ -59,24 +59,44 @@ def create_sleigh():
     sleigh.rect.x = 250
     sleigh.rect.y = 175
     all_sprites_list.add(sleigh)
+def create_tree(size, x = 1380):
+    tree = Tree(size)
+    if size == 'big':
+        tree.rect.y = 360
+    if size == 'small':
+        tree.rect.y = 340
+    tree.x = x
+    tree.rect.x = 1380
+    all_sprites_list.add(tree)
+    trees.add(tree)
 def setup():
-    global s_text, l_text, clock, lives, all_sprites_list, stars, houses, snowmen, background, snows, ground, speed, presents, score
+    global s_text, l_text, clock, lives, all_sprites_list, stars, houses, snowmen, background, snows, ground, speed, presents, score, trees
     background = p.display.set_mode([1280,720])
     #background = p.display.set_mode([1280,720],p.FULLSCREEN | p.SCALED)
-    speed = 3
+    speed = 3        #set to 3
     score = 0
-    lives = 5
+    lives = 1000
     all_sprites_list = p.sprite.Group()
     houses = p.sprite.Group()
     stars = p.sprite.Group()
     snows = p.sprite.Group()
     presents = p.sprite.Group()
     snowmen = p.sprite.Group()
+    trees = p.sprite.Group()
     create_stars()
-    ground = Rect((255,255,255),1280,120)
+    ground = Rect((255,255,255),1280,220)       #1280,120
     ground.rect.x = 0
-    ground.rect.y = 600
+    ground.rect.y = 500        #600
     all_sprites_list.add(ground)
+
+
+    for i in range(-80,1380,80):
+        create_tree('small',i)
+        
+    for i in range(-100,1380,100):
+        create_tree('big',i)
+
+        
     create_house()
     create_snow()
     create_sleigh()
@@ -92,6 +112,7 @@ def setup():
     l_text.rect.x = 1120
     l_text.rect.y = 30
     all_sprites_list.add(l_text)
+
     
     background.fill([0,0,50])
     all_sprites_list.draw(background)
@@ -99,20 +120,23 @@ def setup():
     clock = p.time.Clock()
 
 def events():
+    global present_wait
     for event in p.event.get():
         if event.type == p.QUIT:
             close()
         if event.type == p.KEYDOWN:
             if event.key == p.K_ESCAPE:
                 close()
-            if event.key == p.K_1:
-                create_present('red')
-            if event.key == p.K_2:
-                create_present('blue')
-            if event.key == p.K_3:
-                create_present('green')
-            if event.key == p.K_4:
-                create_present('yellow')
+            if present_wait >= 60:
+                present_wait = 0
+                if event.key == p.K_1:
+                    create_present('red')
+                if event.key == p.K_2:
+                    create_present('blue')
+                if event.key == p.K_3:
+                    create_present('green')
+                if event.key == p.K_4:
+                    create_present('yellow')
 
 def close():
     p.display.quit()
@@ -132,6 +156,9 @@ def delete_sprites():
             sprite.kill()
     for sprite in snowmen:
         if sprite.rect.x < -100:
+            sprite.kill()
+    for sprite in trees:
+        if sprite.rect.x < -135:
             sprite.kill()
             
 def present_sense():
@@ -161,19 +188,31 @@ def update_sprites_background():
         count = 0
     count = count + 1
 def update_sprites():
-    global house_count, house_max, speed
+    global house_count, house_max, speed, tree_count, tree_count_s
     houses.update(speed)
     snowmen.update(speed)
+    trees.update(speed)
     presents.update(speed)
-    if house_count == house_max:
+
+    if tree_count_s >= 80:
+        create_tree('small')
+        tree_count_s = 0
+    
+    if tree_count >= 100:
+        create_tree('big')
+        tree_count = 0
+    
+    if house_count >= house_max:
         if rand.randint(1,3) == 1:
             create_snowman()
         else:
             create_house()
         house_count = 0
-        house_max = round(rand.randint(400,600)*speed/9)
+        #house_max = round(rand.randint(400,600)*speed/9)
+    house_max = rand.random()*(speed*80-speed*60)+speed*60       #get rand between speed*60 and speed*80
     house_count = house_count + 1
-    
+
+
 def update_screen():
     s_text.set(score)
     s_text.rect.x = 1200
@@ -192,12 +231,15 @@ def game_over():
         p.time.wait(2000)
         close()
 def loop():
-    global count, house_count, house_max, speed
+    global count, house_count, house_max, speed, present_wait, tree_count, tree_count_s
     count = 25
     house_count = 1
     bgu = 1
     counttest = 0
     house_max = round(rand.randint(400,600)*speed/9)
+    present_wait = 0
+    tree_count = 100
+    tree_count_s = 80
     while True:
         events()
         for i in range(2):
@@ -210,7 +252,10 @@ def loop():
         update_screen()
         game_over()
         bgu = bgu + 1
-        speed = speed + 0.0003
+        present_wait = present_wait + 1
+        tree_count = tree_count + speed*2
+        tree_count_s = tree_count_s + speed*2
+        speed = speed * 1.0001
 if __name__ == '__main__':
     setup()
     p.time.wait(2000)

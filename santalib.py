@@ -63,12 +63,12 @@ class SnowMan(p.sprite.Sprite):
         self.image.set_colorkey((0,0,0))
         p.draw.circle(self.image,(255,255,255),(50,150),50)
         p.draw.circle(self.image,(255,255,255),(50,80),25)
-        p.draw.circle(self.image,(0,0,0),(40,75),5)
-        p.draw.circle(self.image,(0,0,0),(60,75),5)
-        p.draw.circle(self.image,(0,0,0),(50,120),5)
-        p.draw.circle(self.image,(0,0,0),(50,140),5)
-        p.draw.circle(self.image,(0,0,0),(50,160),5)
-        p.draw.circle(self.image,(0,0,0),(50,180),5)
+        p.draw.circle(self.image,(1,1,1),(40,75),5)
+        p.draw.circle(self.image,(1,1,1),(60,75),5)
+        p.draw.circle(self.image,(1,1,1),(50,120),5)
+        p.draw.circle(self.image,(1,1,1),(50,140),5)
+        p.draw.circle(self.image,(1,1,1),(50,160),5)
+        p.draw.circle(self.image,(1,1,1),(50,180),5)
         p.draw.circle(self.image,(255,165,0),(50,85),5)
         p.draw.arc(self.image,(0,0,0),(40,70,20,30),3.9,5.6)
         p.draw.arc(self.image,(255,0,0),(25,75,50,40),3.6,5.9,10)
@@ -89,6 +89,27 @@ class Sleigh(p.sprite.Sprite):
         self.image = p.transform.scale(p.image.load('sleigh.png'),(200,108))
         self.image.set_colorkey((255,255,255))
         self.rect = self.image.get_rect()
+
+
+class Tree(p.sprite.Sprite):
+    def __init__(self,size,name = ''):
+        self.name = name
+        self.x = 0
+        p.sprite.Sprite.__init__(self)
+        if size == 'big':
+            self.size = 1
+            self.image = tree_img
+        if size == 'small':
+            self.size = 0
+            self.image = tree_img_small
+        self.image.set_colorkey((255,255,255))
+        self.rect = self.image.get_rect()
+    def update(self,speed):
+        if self.size:
+            self.x = self.x - speed*0.9
+        else:
+            self.x = self.x - speed*0.8
+        self.rect.x = round(self.x)
 
 
         
@@ -161,3 +182,11 @@ class Text(p.sprite.Sprite):
     def set(self,text):
         self.image = self.font.render(str(text),True,self.colour)
         self.rect = self.image.get_rect()
+
+def setup():
+    global tree_img, tree_img_small
+    tree_img = p.image.load('tree2.png')
+    tree_img_small = p.transform.scale(p.image.load('tree2.png'),(108,192))
+
+if __name__ != '__main__':
+    setup()
