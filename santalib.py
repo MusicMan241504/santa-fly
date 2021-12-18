@@ -9,45 +9,26 @@ class Rect(p.sprite.Sprite):
         self.rect = self.image.get_rect()
 
 class House(p.sprite.Sprite):
-    def __init__(self,colour,randnum,name = ''):
+    def __init__(self,num,name = ''):
         global speed
-        self.colour = ['red','blue','green','yellow'][randnum-1]
+        self.num = num          #store num in sprite
         self.name = name
         self.x = 0
         p.sprite.Sprite.__init__(self)
-        self.image = p.Surface([100,200])
-        self.image.fill((0,0,0))
-        self.image.set_colorkey((0,0,0))
-        p.draw.rect(self.image,colour,(0,50,100,150))
-        #chimney
-        if rand.randint(0,1) == 1:
-            p.draw.rect(self.image,colour,(10,10,20,40))
-            p.draw.rect(self.image,(255,255,255),(10,10,20,5))
-            
-        else:
-            p.draw.rect(self.image,colour,(70,10,20,40))
-            p.draw.rect(self.image,(255,255,255),(70,10,20,5))
-            
-        p.draw.polygon(self.image,(255,255,255),[(0,50),(50,0),(100,50)])
-        #windows
-        p.draw.rect(self.image,(25,25,50),(10,70,30,40))
-        p.draw.rect(self.image,(84,42,0),(10,70,30,40),2)
-        p.draw.rect(self.image,(25,25,50),(60,70,30,40))
-        p.draw.rect(self.image,(84,42,0),(60,70,30,40),2)
-        if rand.randint(0,1) == 1:
-            p.draw.rect(self.image,(25,25,50),(60,145,30,40))
-            p.draw.rect(self.image,(100,50,0),(60,145,30,40),2)
-            p.draw.rect(self.image,self.colour,(10,145,30,65))
-            p.draw.rect(self.image,(84,42,0),(10,145,30,65),2)
-            
-        else:
-            p.draw.rect(self.image,(25,25,50),(10,145,30,40))
-            p.draw.rect(self.image,(84,42,0),(10,145,30,40),2)
-
-            p.draw.rect(self.image,self.colour,(60,145,30,65))
-            p.draw.rect(self.image,(84,42,0),(60,145,30,65),2)
+        #get correct image depending on num
+        if self.num == 1:
+            self.image = house1
+        elif self.num == 2:
+            self.image = house2
+        elif self.num == 3:
+            self.image = house3
+        elif self.num == 4:
+            self.image = house4
+        
+        self.image.set_colorkey((0,0,0,0))    #remove background
+        
         self.rect = self.image.get_rect()
-        self.present = False
+        self.present = False                #boolean to check if house has a present on it
     def update(self,speed):
         self.x = self.x - speed
         self.rect.x = round(self.x)
@@ -131,12 +112,12 @@ class Snow(p.sprite.Sprite):
         self.x = self.x - self.speedx
         self.rect.x = round(self.x)
 class Present(p.sprite.Sprite):
-    def __init__(self,colour,width,height,name = ''):
+    def __init__(self,num,width,height,name = ''):
         self.name = name
-        self.colour = colour
+        self.num = num
         p.sprite.Sprite.__init__(self)
         self.image = p.Surface([width,height])
-        self.image.fill(colour)
+        self.image.fill((255,0,0))
         self.rect = self.image.get_rect()
         self.speedy = 0.1
         self.count = 1
@@ -170,7 +151,7 @@ class Text(p.sprite.Sprite):
         self.rect = self.image.get_rect()
 
 def setup():
-    global tree_img, tree_img_small, snowman_img, sleigh_img
+    global tree_img, tree_img_small, snowman_img, sleigh_img, house1, house2, house3, house4
     
     #must load images before game to avoid lag
     tree_img = p.image.load('img/tree.png')        #big tree
@@ -179,6 +160,12 @@ def setup():
     snowman_img = p.image.load('img/snowman.png')
 
     sleigh_img = p.image.load('img/sleigh.png')
+
+    #houses
+    house1 = p.image.load('img/house1.png')
+    house2 = p.image.load('img/house2.png')
+    house3 = p.image.load('img/house3.png')
+    house4 = p.image.load('img/house4.png')
 
 if __name__ != '__main__':
     setup()

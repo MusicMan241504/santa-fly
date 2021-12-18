@@ -4,10 +4,8 @@ from santalib import *
 p.init()
 
 def create_house():
-    r = rand.randint(200,255)
-    g = rand.randint(50,150)
-    house = House((r,g,0),rand.randint(1,4))
-    house.rect.y = 420
+    house = House(rand.randint(1,4))       #rand num for which num house
+    house.rect.y = 500
     house.x = 1280
     house.rect.x = 1280
     all_sprites_list.add(house)
@@ -46,8 +44,8 @@ def more_snow():
         snow.x = snow.rect.x
         all_sprites_list.add(snow)
         snows.add(snow)
-def create_present(col):
-    present = Present(col,20,20)
+def create_present(num):
+    present = Present(num,20,20)
     present.x = 300
     present.rect.x = present.x
     present.y = 200
@@ -84,6 +82,7 @@ def setup():
     snowmen = p.sprite.Group()
     trees = p.sprite.Group()
     create_stars()
+    #create ground
     ground = Rect((255,255,255),1280,220)       #1280,120
     ground.rect.x = 0
     ground.rect.y = 500        #600
@@ -130,13 +129,13 @@ def events():
             if present_wait >= 60:
                 present_wait = 0
                 if event.key == p.K_1:
-                    create_present('red')
+                    create_present(1)
                 if event.key == p.K_2:
-                    create_present('blue')
+                    create_present(2)
                 if event.key == p.K_3:
-                    create_present('green')
+                    create_present(3)
                 if event.key == p.K_4:
-                    create_present('yellow')
+                    create_present(4)
 
 def close():
     p.display.quit()
@@ -150,12 +149,12 @@ def delete_sprites():
         if sprite.rect.x < 0:
             sprite.kill()
     for sprite in houses:
-        if sprite.rect.x < -100:
+        if sprite.rect.x < -135:
             if sprite.present == False:
                 lives = lives - 1
             sprite.kill()
     for sprite in snowmen:
-        if sprite.rect.x < -100:
+        if sprite.rect.x < -135:
             sprite.kill()
     for sprite in trees:
         if sprite.rect.x < -135:
@@ -164,13 +163,13 @@ def delete_sprites():
 def present_sense():
     global score, lives
     for sprite in presents:
-        if sprite.rect.y > 740 or sprite.rect.x < -20:
+        if sprite.rect.x < -20:           #if off screen kill
             sprite.kill()
             break
-        if sprite.rect.y > 600 and sprite.falling == True:
-            sprite.falling = False
-            lst = p.sprite.spritecollide(sprite, houses, False)
-            if len(lst) == 1 and lst[0].colour == sprite.colour:
+        if sprite.rect.y > 600 and sprite.falling == True:                #if landed on ground
+            sprite.falling = False                                        #stop falling
+            lst = p.sprite.spritecollide(sprite, houses, False)           #if collision with house
+            if len(lst) == 1 and lst[0].num == sprite.num:          #check if house is correct number
                 house = lst[0]
                 score = score + 1
                 house.present = True
@@ -244,7 +243,7 @@ def loop():
         events()
         for i in range(2):
             delete_sprites()
-            present_sense()
+            present_sense()         #detect if presents have landed
             update_sprites()
         if bgu == 2:
             update_sprites_background()
