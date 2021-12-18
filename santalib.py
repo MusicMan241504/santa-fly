@@ -157,7 +157,7 @@ def setup():
     tree_img = p.image.load('img/tree.png')        #big tree
     tree_img_small = p.transform.scale(p.image.load('img/tree.png'),(108,192))    #small tree
 
-    snowman_img = p.image.load('img/snowman.png')
+    snowman_img = p.image.load('img/snowman2.png')
 
     sleigh_img = p.image.load('img/sleigh.png')
 

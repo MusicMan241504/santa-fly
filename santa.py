@@ -12,7 +12,7 @@ def create_house():
     houses.add(house)
 def create_snowman():
     snowman = SnowMan()
-    snowman.rect.y = 410
+    snowman.rect.y = 458
     snowman.x = 1280
     snowman.rect.x = 1280
     all_sprites_list.add(snowman)
@@ -69,8 +69,8 @@ def create_tree(size, x = 1380):
     trees.add(tree)
 def setup():
     global s_text, l_text, clock, lives, all_sprites_list, stars, houses, snowmen, background, snows, ground, speed, presents, score, trees
-    background = p.display.set_mode([1280,720])
-    #background = p.display.set_mode([1280,720],p.FULLSCREEN | p.SCALED)
+    #background = p.display.set_mode([1280,720])
+    background = p.display.set_mode([1280,720],p.FULLSCREEN | p.SCALED)
     speed = 3        #set to 3
     score = 0
     lives = 1000
