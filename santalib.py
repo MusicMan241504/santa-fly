@@ -76,7 +76,8 @@ class Tree(p.sprite.Sprite):
             self.x = self.x - speed*0.9
         else:
             self.x = self.x - speed*0.8
-        self.rect.x = round(self.x)
+        temp = round(self.x)
+        self.rect.x = temp         #takes too long
 
 
         
@@ -119,7 +120,7 @@ class Present(p.sprite.Sprite):
         self.image = p.Surface([width,height])
         self.image.fill((255,0,0))
         self.rect = self.image.get_rect()
-        self.speedy = 0.1
+        self.speedy = 0.4
         self.count = 1
         self.divider = int(100/3)+1
         self.falling = True
@@ -154,18 +155,21 @@ def setup():
     global tree_img, tree_img_small, snowman_img, sleigh_img, house1, house2, house3, house4
     
     #must load images before game to avoid lag
-    tree_img = p.image.load('img/tree.png')        #big tree
-    tree_img_small = p.transform.scale(p.image.load('img/tree.png'),(108,192))    #small tree
+    tree_img = p.transform.scale(p.image.load('img_fhd/tree.png'),(52,92))        #big tree
+    tree_img_small = p.transform.scale(p.image.load('img_fhd/tree_s.png'),(40,72))    #small tree
 
-    snowman_img = p.image.load('img/snowman2.png')
+    tree_img = p.transform.scale(tree_img,(207,368))
+    tree_img_small = p.transform.scale(tree_img_small,(162,288))
+    
+    snowman_img = p.image.load('img_fhd/snowman.png')
 
-    sleigh_img = p.image.load('img/sleigh.png')
+    sleigh_img = p.image.load('img_fhd/sleigh.png')
 
     #houses
-    house1 = p.image.load('img/house1.png')
-    house2 = p.image.load('img/house2.png')
-    house3 = p.image.load('img/house3.png')
-    house4 = p.image.load('img/house4.png')
+    house1 = p.image.load('img_fhd/house1.png')
+    house2 = p.image.load('img_fhd/house2.png')
+    house3 = p.image.load('img_fhd/house3.png')
+    house4 = p.image.load('img_fhd/house4.png')
 
 if __name__ != '__main__':
     setup()
