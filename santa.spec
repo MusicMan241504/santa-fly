@@ -17,7 +17,9 @@ a = Analysis(['santa.py'],
              win_private_assemblies=False,
              cipher=block_cipher,
              noarchive=False)
-a.datas += [('sleigh.png',"C:\\Users\\Isaac\\Documents\\Coding\\Pygame\\santa-fly\\sleigh.png","DATA")]
+a.datas += [('img\\sleigh.png',"C:\\Users\\Isaac\\Documents\\Coding\\Pygame\\santa-fly\\img\\sleigh.png","DATA")]
+a.datas += [('img\\snowman.png',"C:\\Users\\Isaac\\Documents\\Coding\\Pygame\\santa-fly\\img\\snowman.png","DATA")]
+a.datas += [('img\\tree.png',"C:\\Users\\Isaac\\Documents\\Coding\\Pygame\\santa-fly\\img\\tree.png","DATA")]
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 

@@ -58,23 +58,9 @@ class SnowMan(p.sprite.Sprite):
         self.name = name
         self.x = 0
         p.sprite.Sprite.__init__(self)
-        self.image = p.Surface([100,200])
-        self.image.fill((0,0,0))
-        self.image.set_colorkey((0,0,0))
-        p.draw.circle(self.image,(255,255,255),(50,150),50)
-        p.draw.circle(self.image,(255,255,255),(50,80),25)
-        p.draw.circle(self.image,(1,1,1),(40,75),5)
-        p.draw.circle(self.image,(1,1,1),(60,75),5)
-        p.draw.circle(self.image,(1,1,1),(50,120),5)
-        p.draw.circle(self.image,(1,1,1),(50,140),5)
-        p.draw.circle(self.image,(1,1,1),(50,160),5)
-        p.draw.circle(self.image,(1,1,1),(50,180),5)
-        p.draw.circle(self.image,(255,165,0),(50,85),5)
-        p.draw.arc(self.image,(0,0,0),(40,70,20,30),3.9,5.6)
-        p.draw.arc(self.image,(255,0,0),(25,75,50,40),3.6,5.9,10)
-        p.draw.polygon(self.image,(255,0,0),[(55,110),(65,105),(80,130),(65,135)])   #scarf
-        p.draw.polygon(self.image,(255,0,0),[(50,0),(26,65),(74,65)])   #hat
-        p.draw.polygon(self.image,(0,255,0),[(26,65),(74,65),(75,70),(25,70)])   #hat
+        self.image = snowman_img
+        self.image.set_colorkey((0,0,255,0))
+        
         self.rect = self.image.get_rect()
     def update(self,speed):
         self.x = self.x - speed
@@ -86,7 +72,7 @@ class Sleigh(p.sprite.Sprite):
         self.name = name
         self.x = 0
         p.sprite.Sprite.__init__(self)
-        self.image = p.transform.scale(p.image.load('sleigh.png'),(200,108))
+        self.image = sleigh_img
         self.image.set_colorkey((255,255,255))
         self.rect = self.image.get_rect()
 
@@ -184,9 +170,15 @@ class Text(p.sprite.Sprite):
         self.rect = self.image.get_rect()
 
 def setup():
-    global tree_img, tree_img_small
-    tree_img = p.image.load('tree2.png')
-    tree_img_small = p.transform.scale(p.image.load('tree2.png'),(108,192))
+    global tree_img, tree_img_small, snowman_img, sleigh_img
+    
+    #must load images before game to avoid lag
+    tree_img = p.image.load('img/tree.png')        #big tree
+    tree_img_small = p.transform.scale(p.image.load('img/tree.png'),(108,192))    #small tree
+
+    snowman_img = p.image.load('img/snowman.png')
+
+    sleigh_img = p.image.load('img/sleigh.png')
 
 if __name__ != '__main__':
     setup()
