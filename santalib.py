@@ -28,6 +28,7 @@ class House(p.sprite.Sprite):
         self.image.set_colorkey((0,0,0,0))    #remove background
         
         self.rect = self.image.get_rect()
+        self.mask = p.mask.from_surface(self.image)        #create sprite mask
         self.present = False                #boolean to check if house has a present on it
     def update(self,speed):
         self.x = self.x - speed
@@ -119,6 +120,7 @@ class Present(p.sprite.Sprite):
         self.image = p.Surface([width,height])
         self.image.fill((255,0,0))
         self.rect = self.image.get_rect()
+        self.mask = p.mask.from_surface(self.image)        #create sprite mask
         self.speedy = 0.4
         self.count = 1
         self.divider = int(100/3)+1

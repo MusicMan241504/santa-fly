@@ -171,7 +171,7 @@ def present_sense():
             break
 
 
-        
+        '''
         if present.rect.y > 930 and present.falling == True:                #if landed on ground
             present.falling = False                                        #stop falling
             lst = p.sprite.spritecollide(present, houses, False)           #if collision with house
@@ -182,6 +182,17 @@ def present_sense():
                 
             else:
                 score = score - 1
+        '''
+
+
+        collisions = p.sprite.spritecollide(present, houses, False)             #create list of houses present is touching
+        if len(collisions) == 1:                                                #if list has a house in it
+            house = collisions[0]                                               #assign house to house var for easier use
+            if p.sprite.collide_mask(present, house) != None:
+                present.falling = False                                         #stop present from falling
+                if house.num == present.num:                                    #if it is the correct house
+                    house.present = True                                        #store house as having present
+                    score = score + 1                                           #update score
             
         
 
