@@ -41,7 +41,7 @@ class SnowMan(p.sprite.Sprite):
         self.x = 0
         p.sprite.Sprite.__init__(self)
         self.image = snowman_img
-        
+        self.image.set_colorkey((0,0,0,0))
         self.rect = self.image.get_rect()
     def update(self,speed):
         self.x = self.x - speed
@@ -162,17 +162,17 @@ def setup_lib():
 
 
     
-    snowman_img = p.image.load('img_fhd/snowman.png')
+    snowman_img = p.image.load('img_fhd/snowman.png').convert()
 
-    sleigh_img = p.image.load('img_fhd/sleigh.png')
+    sleigh_img = p.image.load('img_fhd/sleigh.png').convert()
 
     #houses
-    house1 = p.image.load('img_fhd/house1.png')
-    house2 = p.image.load('img_fhd/house2.png')
-    house3 = p.image.load('img_fhd/house3.png')
-    house4 = p.image.load('img_fhd/house4.png')
+    house1 = p.image.load('img_fhd/house1.png').convert()
+    house2 = p.image.load('img_fhd/house2.png').convert()
+    house3 = p.image.load('img_fhd/house3.png').convert()
+    house4 = p.image.load('img_fhd/house4.png').convert()
 
     #presents
-    present1 = p.image.load('img_fhd/present1.png')
+    present1 = p.image.load('img_fhd/present1.png').convert()
 
 
