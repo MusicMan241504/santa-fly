@@ -166,7 +166,7 @@ def delete_sprites():
 def present_sense():
     global score, lives
     for present in presents:               #repeat for every present
-        if present.rect.x < -20:           #if off screen kill
+        if present.rect.x < -100:           #if off screen kill
             present.kill()
             break
 
