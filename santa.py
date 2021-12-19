@@ -179,6 +179,8 @@ def present_sense():
                 if house.num == present.num and house.present == False:         #if it is the correct house & house doesn't already have present
                     house.present = True                                        #store house as having present
                     score = score + 1                                           #update score
+        if present.rect.y > 930 and present.falling == True:                    #if hit ground and falling
+            present.falling = False                                             #stop falling
             
         
 
