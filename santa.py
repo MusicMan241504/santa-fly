@@ -72,9 +72,9 @@ def setup():
     #background = p.display.set_mode([1920,1080])
     background = p.display.set_mode([1920,1080],p.FULLSCREEN | p.SCALED)
     setup_lib()
-    speed = 8        #set to 8
+    speed = 8           #set to 8
     score = 0
-    lives = 1000
+    lives = 5        #set to 5
     all_sprites_list = p.sprite.Group()
     houses = p.sprite.Group()
     stars = p.sprite.Group()

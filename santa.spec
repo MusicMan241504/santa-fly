@@ -17,9 +17,24 @@ a = Analysis(['santa.py'],
              win_private_assemblies=False,
              cipher=block_cipher,
              noarchive=False)
-a.datas += [('img\\sleigh.png',"C:\\Users\\Isaac\\Documents\\Coding\\Pygame\\santa-fly\\img\\sleigh.png","DATA")]
-a.datas += [('img\\snowman.png',"C:\\Users\\Isaac\\Documents\\Coding\\Pygame\\santa-fly\\img\\snowman.png","DATA")]
-a.datas += [('img\\tree.png',"C:\\Users\\Isaac\\Documents\\Coding\\Pygame\\santa-fly\\img\\tree.png","DATA")]
+
+a.datas += [('img_fhd\\sleigh.png',"C:\\Users\\Isaac\\Documents\\Coding\\Pygame\\santa-fly\\img_fhd\\sleigh.png","DATA")]
+
+a.datas += [('img_fhd\\snowman.png',"C:\\Users\\Isaac\\Documents\\Coding\\Pygame\\santa-fly\\img_fhd\\snowman.png","DATA")]
+
+a.datas += [('img_fhd\\tree.png',"C:\\Users\\Isaac\\Documents\\Coding\\Pygame\\santa-fly\\img_fhd\\tree.png","DATA")]
+a.datas += [('img_fhd\\tree_s.png',"C:\\Users\\Isaac\\Documents\\Coding\\Pygame\\santa-fly\\img_fhd\\tree_s.png","DATA")]
+
+a.datas += [('img_fhd\\house1.png',"C:\\Users\\Isaac\\Documents\\Coding\\Pygame\\santa-fly\\img_fhd\\house1.png","DATA")]
+a.datas += [('img_fhd\\house2.png',"C:\\Users\\Isaac\\Documents\\Coding\\Pygame\\santa-fly\\img_fhd\\house2.png","DATA")]
+a.datas += [('img_fhd\\house3.png',"C:\\Users\\Isaac\\Documents\\Coding\\Pygame\\santa-fly\\img_fhd\\house3.png","DATA")]
+a.datas += [('img_fhd\\house4.png',"C:\\Users\\Isaac\\Documents\\Coding\\Pygame\\santa-fly\\img_fhd\\house4.png","DATA")]
+
+a.datas += [('img_fhd\\present1.png',"C:\\Users\\Isaac\\Documents\\Coding\\Pygame\\santa-fly\\img_fhd\\present1.png","DATA")]
+a.datas += [('img_fhd\\present2.png',"C:\\Users\\Isaac\\Documents\\Coding\\Pygame\\santa-fly\\img_fhd\\present2.png","DATA")]
+a.datas += [('img_fhd\\present3.png',"C:\\Users\\Isaac\\Documents\\Coding\\Pygame\\santa-fly\\img_fhd\\present3.png","DATA")]
+a.datas += [('img_fhd\\present4.png',"C:\\Users\\Isaac\\Documents\\Coding\\Pygame\\santa-fly\\img_fhd\\present4.png","DATA")]
+
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
 
