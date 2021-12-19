@@ -113,12 +113,13 @@ class Snow(p.sprite.Sprite):
         self.x = self.x - self.speedx
         self.rect.x = round(self.x)
 class Present(p.sprite.Sprite):
-    def __init__(self,num,width,height,name = ''):
+    def __init__(self,num,name = ''):
         self.name = name
         self.num = num
         p.sprite.Sprite.__init__(self)
-        self.image = p.Surface([width,height])
-        self.image.fill((255,0,0))
+        #if num == 1:
+        self.image = present1
+        self.image.set_colorkey((0,0,0,0))
         self.rect = self.image.get_rect()
         self.mask = p.mask.from_surface(self.image)        #create sprite mask
         self.speedy = 0.4
@@ -153,7 +154,7 @@ class Text(p.sprite.Sprite):
         self.rect = self.image.get_rect()
 
 def setup_lib():
-    global tree_img, tree_img_small, snowman_img, sleigh_img, house1, house2, house3, house4
+    global tree_img, tree_img_small, snowman_img, sleigh_img, house1, house2, house3, house4, present1
     
     #must load images before game to avoid lag
     tree_img = p.image.load('img_fhd/tree.png').convert()        #big tree
@@ -170,5 +171,8 @@ def setup_lib():
     house2 = p.image.load('img_fhd/house2.png')
     house3 = p.image.load('img_fhd/house3.png')
     house4 = p.image.load('img_fhd/house4.png')
+
+    #presents
+    present1 = p.image.load('img_fhd/present1.png')
 
 

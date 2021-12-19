@@ -45,7 +45,7 @@ def more_snow():
         all_sprites_list.add(snow)
         snows.add(snow)
 def create_present(num):
-    present = Present(num,20,20)
+    present = Present(num)
     present.x = 450
     present.rect.x = present.x
     present.y = 300
