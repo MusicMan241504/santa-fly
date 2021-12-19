@@ -97,7 +97,6 @@ def setup():
         create_tree('big',i)
 
         
-    create_house()
     create_snow()
     create_sleigh()
 
@@ -235,10 +234,10 @@ def game_over():
 def loop():
     global count, house_count, house_max, speed, present_wait, tree_count, tree_count_s
     count = 25
-    house_count = 1
+    house_count = 0
     bgu = 1
     counttest = 0
-    house_max = rand.random()*(speed*80-speed*60)+speed*60
+    house_max = speed*120
     present_wait = 0
     tree_count = 150
     tree_count_s = 120
