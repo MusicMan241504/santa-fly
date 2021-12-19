@@ -71,6 +71,7 @@ def setup():
     global s_text, l_text, clock, lives, all_sprites_list, stars, houses, snowmen, background, snows, ground, speed, presents, score, trees
     #background = p.display.set_mode([1920,1080])
     background = p.display.set_mode([1920,1080],p.FULLSCREEN | p.SCALED)
+    setup_lib()
     speed = 8        #set to 8
     score = 0
     lives = 1000
@@ -164,14 +165,17 @@ def delete_sprites():
             
 def present_sense():
     global score, lives
-    for sprite in presents:
-        if sprite.rect.x < -20:           #if off screen kill
-            sprite.kill()
+    for present in presents:               #repeat for every present
+        if present.rect.x < -20:           #if off screen kill
+            present.kill()
             break
-        if sprite.rect.y > 930 and sprite.falling == True:                #if landed on ground
-            sprite.falling = False                                        #stop falling
-            lst = p.sprite.spritecollide(sprite, houses, False)           #if collision with house
-            if len(lst) == 1 and lst[0].num == sprite.num:          #check if house is correct number
+
+
+        
+        if present.rect.y > 930 and present.falling == True:                #if landed on ground
+            present.falling = False                                        #stop falling
+            lst = p.sprite.spritecollide(present, houses, False)           #if collision with house
+            if len(lst) == 1 and lst[0].num == present.num:          #check if house is correct number
                 house = lst[0]
                 score = score + 1
                 house.present = True

@@ -40,7 +40,6 @@ class SnowMan(p.sprite.Sprite):
         self.x = 0
         p.sprite.Sprite.__init__(self)
         self.image = snowman_img
-        self.image.set_colorkey((0,0,255,0))
         
         self.rect = self.image.get_rect()
     def update(self,speed):
@@ -54,7 +53,7 @@ class Sleigh(p.sprite.Sprite):
         self.x = 0
         p.sprite.Sprite.__init__(self)
         self.image = sleigh_img
-        self.image.set_colorkey((255,255,255))
+        self.image.set_colorkey((0,0,0))
         self.rect = self.image.get_rect()
 
 
@@ -69,7 +68,7 @@ class Tree(p.sprite.Sprite):
         if size == 'small':
             self.size = 0
             self.image = tree_img_small
-        self.image.set_colorkey((255,255,255))
+        self.image.set_colorkey((0,0,0,0))
         self.rect = self.image.get_rect()
     def update(self,speed):
         if self.size:
@@ -151,15 +150,14 @@ class Text(p.sprite.Sprite):
         self.image = self.font.render(str(text),True,self.colour)
         self.rect = self.image.get_rect()
 
-def setup():
+def setup_lib():
     global tree_img, tree_img_small, snowman_img, sleigh_img, house1, house2, house3, house4
     
     #must load images before game to avoid lag
-    tree_img = p.transform.scale(p.image.load('img_fhd/tree.png'),(52,92))        #big tree
-    tree_img_small = p.transform.scale(p.image.load('img_fhd/tree_s.png'),(40,72))    #small tree
+    tree_img = p.image.load('img_fhd/tree.png').convert()        #big tree
+    tree_img_small = p.image.load('img_fhd/tree_s.png').convert()   #small tree
 
-    tree_img = p.transform.scale(tree_img,(207,368))
-    tree_img_small = p.transform.scale(tree_img_small,(162,288))
+
     
     snowman_img = p.image.load('img_fhd/snowman.png')
 
@@ -171,5 +169,4 @@ def setup():
     house3 = p.image.load('img_fhd/house3.png')
     house4 = p.image.load('img_fhd/house4.png')
 
-if __name__ != '__main__':
-    setup()
+
