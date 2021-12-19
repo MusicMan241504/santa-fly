@@ -127,7 +127,7 @@ def events():
         if event.type == p.KEYDOWN:
             if event.key == p.K_ESCAPE:
                 close()
-            if present_wait >= 30:
+            if present_wait >= 10:
                 present_wait = 0
                 if event.key == p.K_1:
                     create_present(1)
@@ -187,7 +187,6 @@ def present_sense():
 def update_sprites_background():
     global count
     snows.update()
-    #trees.update(speed*2)
     if count == 37:
         more_snow()
         count = 0
