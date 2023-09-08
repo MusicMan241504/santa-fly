@@ -7,5 +7,5 @@ Drop presents on the correct houses.
 - If a present you drop lands not on the correct house you will loose one point.
 - If a house without the correct present leaves the screen you will loose a life.
 - The game plays until you loose all of your 5 lives, press ESC or press the red X.
-# Code details
+## Code details
 Programmed in python using pygame. The sanatlib.py file contains classes for each of the sprites which is then imported by santa.py (the main file).
